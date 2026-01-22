@@ -23,6 +23,7 @@
           <span id="pingStatus">Ping: --</span>
           <span id="checksumStatus">Checksum: --</span>
         </div>
+        <div class="version" aria-label="Application version">Version 1.0.0</div>
       </header>
 
       <section class="content">
@@ -36,17 +37,17 @@
 
         <section class="keypad" aria-label="Remote keypad">
           <div class="keypad__side">
-            <button class="key" data-key="0x13" data-release="0xFE">PTT</button>
-            <button class="key" data-key="0x10" data-release="0xFF">S1</button>
-            <button class="key" data-key="0x11" data-release="0xFF">S2</button>
+            <button class="key key--ptt" data-key="0x13" data-release="0xFE">PTT</button>
+            <button class="key key--tall" data-key="0x10" data-release="0xFF">S1</button>
+            <button class="key key--tall" data-key="0x11" data-release="0xFF">S2</button>
           </div>
           <div class="keypad__grid">
             <button class="key" data-key="0x12" data-release="0xFF">Emerg</button>
             <button class="key" data-key="0x0D" data-release="0xFF">Up</button>
             <span></span>
-            <button class="key" data-key="0x0C" data-release="0xFF">Green</button>
+            <button class="key key--green" data-key="0x0C" data-release="0xFF" aria-label="Green key">⨯</button>
             <button class="key" data-key="0x0E" data-release="0xFF">Down</button>
-            <button class="key" data-key="0x0F" data-release="0xFF">Red</button>
+            <button class="key key--red" data-key="0x0F" data-release="0xFF" aria-label="Red key">☰</button>
             <span></span>
             <span></span>
             <span></span>
