@@ -80,7 +80,7 @@ Different font sizes and symbols must be implemented. All fonts are monospaced. 
 | 32 | Regular Space |
 | 33 | Padlock |
 | 34 | PTT-ID Icon |
-| 35 | VOX Icon |
+| 35 | VOX Icon (Speech Bubble) |
 | 36 | Scanning Icon |
 | 37 | Pause Icon |
 | 38 | UP Chevron |
@@ -101,8 +101,8 @@ Different font sizes and symbols must be implemented. All fonts are monospaced. 
 | 53 | Filled Circle |
 | 54 | GPS Not Locked Icon |
 | 55 | GPS Locked Icon |
-| 56 | APRS Icon |
-| 57 | APRS Icon With Beacon |
+| 56 | Compass with no needle |
+| 57 | Compass with needle |
 | 58 | Mute Icon |
 
 
