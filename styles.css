@@ -45,6 +45,17 @@ body {
   gap: 4px;
 }
 
+.version {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #3f4a6b;
+  padding: 8px 12px;
+  background: #f0f3fb;
+  border-radius: 999px;
+  border: 1px solid #d7deef;
+  white-space: nowrap;
+}
+
 button {
   padding: 10px 16px;
   border-radius: 8px;
@@ -115,6 +126,10 @@ button:disabled {
   gap: 10px;
 }
 
+.keypad__side .key {
+  width: 90px;
+}
+
 .keypad__grid {
   display: grid;
   grid-template-columns: repeat(3, 80px);
@@ -125,6 +140,36 @@ button:disabled {
 .key {
   background: #e2e6f3;
   border: 1px solid #b8c3e2;
+}
+
+.key--tall {
+  min-height: calc(44px * 2 + 10px);
+}
+
+.key--ptt {
+  min-height: calc(44px * 3 + 20px);
+}
+
+.key--red {
+  background: #b8161f;
+  color: #ffffff;
+  border-color: #8f1017;
+  font-size: 1.2rem;
+}
+
+.key--red:active {
+  background: #a3121b;
+}
+
+.key--green {
+  background: #0f7a3c;
+  color: #ffffff;
+  border-color: #0b5b2d;
+  font-size: 1.2rem;
+}
+
+.key--green:active {
+  background: #0c6a34;
 }
 
 .key:active {
