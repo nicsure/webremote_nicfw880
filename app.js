@@ -256,7 +256,6 @@ async function connect() {
     connectButton.disabled = true;
     disconnectButton.disabled = false;
     updateSessionButtons();
-    startPing();
     readLoop();
   } catch (error) {
     console.error(error);
@@ -335,6 +334,7 @@ function beginSession() {
   lastPingReply = null;
   updatePingStatus();
   updateSessionButtons();
+  startPing();
 }
 
 function endSession(statusMessage) {
@@ -342,6 +342,7 @@ function endSession(statusMessage) {
   sessionActive = false;
   sessionStartTime = null;
   lastPingReply = null;
+  stopPing();
   updatePingStatus();
   updateSessionButtons();
   if (statusMessage) {
@@ -385,6 +386,7 @@ async function readLoop() {
 }
 
 function handleKeyPress(event) {
+  if (!sessionActive) return;
   const key = event.currentTarget.dataset.key;
   if (!key) return;
   const value = Number(key);
@@ -392,6 +394,7 @@ function handleKeyPress(event) {
 }
 
 function handleKeyRelease(event) {
+  if (!sessionActive) return;
   const release = event.currentTarget.dataset.release;
   if (!release) return;
   const value = Number(release);
