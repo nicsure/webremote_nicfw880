@@ -1,0 +1,143 @@
+:root {
+  color-scheme: light;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: #f6f7fb;
+  color: #1c1e26;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(13, 20, 33, 0.08);
+}
+
+.toolbar__group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 4px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #cad3ea;
+  background: #eef1f7;
+  color: #1c1e26;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.display-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+#display {
+  border-radius: 12px;
+  border: 2px solid #1c1e26;
+  background: #000000;
+  image-rendering: pixelated;
+  width: 480px;
+  height: 640px;
+}
+
+.led {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.led__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1c1e26;
+  border: 2px solid #1c1e26;
+  display: inline-block;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(13, 20, 33, 0.08);
+}
+
+.keypad__side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.keypad__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(7, 44px);
+  gap: 10px;
+}
+
+.key {
+  background: #e2e6f3;
+  border: 1px solid #b8c3e2;
+}
+
+.key:active {
+  background: #c8d0ea;
+}
+
+@media (max-width: 900px) {
+  #display {
+    width: 320px;
+    height: 426px;
+  }
+
+  .keypad__grid {
+    grid-template-columns: repeat(3, 64px);
+  }
+}
