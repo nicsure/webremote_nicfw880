@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remote Protocol Web Serial Console</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="toolbar">
+        <div class="toolbar__group">
+          <button id="connectButton">Connect</button>
+          <button id="disconnectButton" disabled>Disconnect</button>
+          <button id="startButton" disabled>Start Session</button>
+          <button id="exitButton" disabled>Exit Session</button>
+        </div>
+        <div class="toolbar__group">
+          <button id="clearButton">Clear Display</button>
+        </div>
+        <div class="status">
+          <span id="connectionStatus">Disconnected</span>
+          <span id="pingStatus">Ping: --</span>
+          <span id="checksumStatus">Checksum: --</span>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="display-panel">
+          <canvas id="display" width="240" height="320" aria-label="Remote display"></canvas>
+          <div class="led" aria-label="Radio LED" role="status">
+            <span class="led__dot" id="ledDot"></span>
+            <span class="led__label">LED</span>
+          </div>
+        </div>
+
+        <section class="keypad" aria-label="Remote keypad">
+          <div class="keypad__side">
+            <button class="key" data-key="0x13" data-release="0xFE">PTT</button>
+            <button class="key" data-key="0x10" data-release="0xFF">S1</button>
+            <button class="key" data-key="0x11" data-release="0xFF">S2</button>
+          </div>
+          <div class="keypad__grid">
+            <button class="key" data-key="0x12" data-release="0xFF">Emerg</button>
+            <button class="key" data-key="0x0D" data-release="0xFF">Up</button>
+            <span></span>
+            <button class="key" data-key="0x0C" data-release="0xFF">Green</button>
+            <button class="key" data-key="0x0E" data-release="0xFF">Down</button>
+            <button class="key" data-key="0x0F" data-release="0xFF">Red</button>
+            <span></span>
+            <span></span>
+            <span></span>
+            <button class="key" data-key="0x00" data-release="0xFF">1</button>
+            <button class="key" data-key="0x04" data-release="0xFF">2</button>
+            <button class="key" data-key="0x08" data-release="0xFF">3</button>
+            <button class="key" data-key="0x01" data-release="0xFF">4</button>
+            <button class="key" data-key="0x05" data-release="0xFF">5</button>
+            <button class="key" data-key="0x09" data-release="0xFF">6</button>
+            <button class="key" data-key="0x02" data-release="0xFF">7</button>
+            <button class="key" data-key="0x06" data-release="0xFF">8</button>
+            <button class="key" data-key="0x0A" data-release="0xFF">9</button>
+            <button class="key" data-key="0x03" data-release="0xFF">*</button>
+            <button class="key" data-key="0x07" data-release="0xFF">0</button>
+            <button class="key" data-key="0x0B" data-release="0xFF">#</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
