@@ -102,9 +102,9 @@ button:disabled {
 }
 
 .led__dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  width: 64px;
+  height: 12px;
+  border-radius: 4px;
   background: #1c1e26;
   border: 2px solid #1c1e26;
   display: inline-block;
@@ -162,14 +162,14 @@ button:disabled {
 }
 
 .key--emerg {
-  background: #f08c00;
+  background: #c76b00;
   color: #1c1e26;
-  border-color: #c96f00;
+  border-color: #9a5200;
   font-size: 1.2rem;
 }
 
 .key--emerg:active {
-  background: #e67800;
+  background: #b35f00;
 }
 
 .key--green {
