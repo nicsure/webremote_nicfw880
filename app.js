@@ -59,6 +59,9 @@ let reader = null;
 let writer = null;
 let pingInterval = null;
 let lastPingReply = null;
+let sessionActive = false;
+let sessionStarting = false;
+let sessionStartTime = null;
 
 function setStatus(text) {
   connectionStatus.textContent = text;
@@ -252,8 +255,7 @@ async function connect() {
     setStatus("Connected");
     connectButton.disabled = true;
     disconnectButton.disabled = false;
-    startButton.disabled = false;
-    exitButton.disabled = false;
+    updateSessionButtons();
     startPing();
     readLoop();
   } catch (error) {
@@ -277,10 +279,10 @@ async function disconnect() {
     await port.close();
     port = null;
   }
+  endSession();
   connectButton.disabled = false;
   disconnectButton.disabled = true;
-  startButton.disabled = true;
-  exitButton.disabled = true;
+  updateSessionButtons();
   setStatus("Disconnected");
 }
 
@@ -298,8 +300,15 @@ function startPing() {
       console.error(error);
     }
     updatePingStatus();
-    if (lastPingReply && Date.now() - lastPingReply > 3500) {
-      setStatus("Ping timeout");
+    const now = Date.now();
+    if (sessionStarting && sessionStartTime && now - sessionStartTime > 5000 && !lastPingReply) {
+      await sendExitSession();
+      endSession("Ping timeout");
+      return;
+    }
+    if (sessionActive && lastPingReply && now - lastPingReply > 5000) {
+      await sendExitSession();
+      endSession("Ping timeout");
     }
   }, 1000);
 }
@@ -313,10 +322,50 @@ function stopPing() {
   updatePingStatus();
 }
 
+function updateSessionButtons() {
+  const connected = Boolean(port);
+  startButton.disabled = !connected || sessionActive || sessionStarting;
+  exitButton.disabled = !connected || !sessionActive;
+}
+
+function beginSession() {
+  sessionStarting = true;
+  sessionActive = false;
+  sessionStartTime = Date.now();
+  lastPingReply = null;
+  updatePingStatus();
+  updateSessionButtons();
+}
+
+function endSession(statusMessage) {
+  sessionStarting = false;
+  sessionActive = false;
+  sessionStartTime = null;
+  lastPingReply = null;
+  updatePingStatus();
+  updateSessionButtons();
+  if (statusMessage) {
+    setStatus(statusMessage);
+  }
+}
+
+async function sendExitSession() {
+  try {
+    await sendBytes(EXIT_SESSION);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function readLoop() {
   const parser = new PacketParser(parsePacket, () => {
     lastPingReply = Date.now();
     updatePingStatus();
+    if (sessionStarting) {
+      sessionStarting = false;
+      sessionActive = true;
+      updateSessionButtons();
+    }
   });
 
   while (port && reader) {
@@ -352,10 +401,12 @@ function handleKeyRelease(event) {
 connectButton.addEventListener("click", connect);
 disconnectButton.addEventListener("click", disconnect);
 startButton.addEventListener("click", () => {
+  beginSession();
   sendBytes(START_SESSION);
 });
 exitButton.addEventListener("click", () => {
   sendBytes(EXIT_SESSION);
+  endSession("Session ended");
 });
 clearButton.addEventListener("click", clearDisplay);
 
