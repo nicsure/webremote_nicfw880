@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Remote Protocol Web Serial Console</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=1.0.0" />
   </head>
   <body>
     <main class="app">
@@ -42,11 +45,11 @@
             <button class="key key--tall" data-key="0x11" data-release="0xFF">S2</button>
           </div>
           <div class="keypad__grid">
-            <button class="key" data-key="0x12" data-release="0xFF">Emerg</button>
-            <button class="key" data-key="0x0D" data-release="0xFF">Up</button>
+            <button class="key key--emerg" data-key="0x12" data-release="0xFF">⚠</button>
+            <button class="key" data-key="0x0D" data-release="0xFF">↑</button>
             <span></span>
             <button class="key key--green" data-key="0x0C" data-release="0xFF" aria-label="Green key">⨯</button>
-            <button class="key" data-key="0x0E" data-release="0xFF">Down</button>
+            <button class="key" data-key="0x0E" data-release="0xFF">↓</button>
             <button class="key key--red" data-key="0x0F" data-release="0xFF" aria-label="Red key">☰</button>
             <span></span>
             <span></span>
@@ -68,6 +71,6 @@
       </section>
     </main>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=1.0.0"></script>
   </body>
 </html>

@@ -161,6 +161,17 @@ button:disabled {
   background: #a3121b;
 }
 
+.key--emerg {
+  background: #f08c00;
+  color: #1c1e26;
+  border-color: #c96f00;
+  font-size: 1.2rem;
+}
+
+.key--emerg:active {
+  background: #e67800;
+}
+
 .key--green {
   background: #0f7a3c;
   color: #ffffff;
