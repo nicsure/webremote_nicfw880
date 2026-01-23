@@ -114,6 +114,8 @@ function drawText({ x, y, font, background, foreground, text }) {
   ctx.fillStyle = rgb565ToHex(foreground);
 
   if (font === 6) {
+    const unicodeFontSize = metrics.size * DISPLAY_SCALE * 0.85;
+    ctx.font = `${unicodeFontSize}px monospace`;
     [...text].forEach((char, index) => {
       const code = char.charCodeAt(0);
       const symbol = SYMBOL_MAP[code] ?? char;
