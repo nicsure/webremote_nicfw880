@@ -12,6 +12,8 @@ const FONT_METRICS = {
   6: { width: 16, height: 16, size: 16 },
 };
 
+const DISPLAY_SCALE = 2;
+
 const SYMBOL_MAP = {
   32: " ",
   33: "🔒",
@@ -103,10 +105,11 @@ function clearDisplay() {
 
 function drawText({ x, y, font, background, foreground, text }) {
   const metrics = FONT_METRICS[font] ?? FONT_METRICS[0];
-  const width = metrics.width * text.length;
+  const width = metrics.width * text.length * DISPLAY_SCALE;
+  const height = metrics.height * DISPLAY_SCALE;
   ctx.fillStyle = rgb565ToHex(background);
-  ctx.fillRect(x, y, width, metrics.height);
-  ctx.font = `${metrics.size}px monospace`;
+  ctx.fillRect(x, y, width, height);
+  ctx.font = `${metrics.size * DISPLAY_SCALE}px monospace`;
   ctx.textBaseline = "top";
   ctx.fillStyle = rgb565ToHex(foreground);
 
@@ -114,7 +117,7 @@ function drawText({ x, y, font, background, foreground, text }) {
     [...text].forEach((char, index) => {
       const code = char.charCodeAt(0);
       const symbol = SYMBOL_MAP[code] ?? char;
-      ctx.fillText(symbol, x + index * metrics.width, y);
+      ctx.fillText(symbol, x + index * metrics.width * DISPLAY_SCALE, y);
     });
     return;
   }
@@ -220,10 +223,10 @@ function parsePacket(packet) {
   const type = packet[1];
   if (type === 0x01) {
     drawRect({
-      x: packet[2],
-      y: packet[3] | (packet[4] << 8),
-      width: packet[5],
-      height: packet[6] | (packet[7] << 8),
+      x: packet[2] * DISPLAY_SCALE,
+      y: (packet[3] | (packet[4] << 8)) * DISPLAY_SCALE,
+      width: packet[5] * DISPLAY_SCALE,
+      height: (packet[6] | (packet[7] << 8)) * DISPLAY_SCALE,
       color: packet[8] | (packet[9] << 8),
     });
     return;
@@ -232,8 +235,8 @@ function parsePacket(packet) {
     const textBytes = packet.slice(10, -1);
     const text = new TextDecoder().decode(Uint8Array.from(textBytes)).replace(/\u0000$/, "");
     drawText({
-      x: packet[2],
-      y: packet[3] | (packet[4] << 8),
+      x: packet[2] * DISPLAY_SCALE,
+      y: (packet[3] | (packet[4] << 8)) * DISPLAY_SCALE,
       font: packet[5],
       background: packet[6] | (packet[7] << 8),
       foreground: packet[8] | (packet[9] << 8),
